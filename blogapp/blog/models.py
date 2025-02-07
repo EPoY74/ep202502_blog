@@ -31,7 +31,7 @@ class Post(models.Model):
 class Meta:
     ordering=['-publish']
     indexes=[
-        models.Index(fields=['-publish'])
+        models.Index(fields=['-publish']),
     ]
     verbose_name="Пост"
     verbose_name_plural="Посты"
