@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 
 class Post(models.Model):
-    title=models.CharField(max_length=100)
-    slug=models.SlugField(max_length=100)
+    title=models.CharField(max_length=100, unique=True)
+    slug=models.SlugField(max_length=100, unique=True)
     body=models.TextField
     
 def __str__(self):
