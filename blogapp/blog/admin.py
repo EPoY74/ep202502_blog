@@ -13,8 +13,17 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     
     # показываемполя модели которые мы хотим видеть в админке
-    list_display=['title', 
-    'slug',
-    'author', 
-    'publish',
-    'status',]
+    list_display=['title', 'slug', 'author', 'publish', 'status',]
+    
+    # выводим список, по каким полям можно фильтровать
+    list_filter=['status','created', 'publish', 'author']
+    
+    # Для вывода строки поиска и покаким полям ищем
+    search_fields=['title', 'body']
+    prepopulated_fields={'slug':('title',)}
+    raw_id_fields=['author']
+    
+    # для вывода навигации по датам и будет 
+    # осрортировано по столбцам СТАТУС и Опубликовано
+    date_hierarchy='publish'
+    ordering=['status', 'publish']
