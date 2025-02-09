@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # указываю.чтоуменя есть приложение, чтобы django 
+    # запустил его
     'blog.BlogConfig',
 ]
 
