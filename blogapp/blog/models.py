@@ -30,6 +30,8 @@ class Post(models.Model):
                               choices=Status.choices,
                               default=Status.DRAFT,
                               verbose_name='Статус поста')
+    objects = models.Manager()
+    published = PublishedManager()
 
     class Meta:
         """"""
