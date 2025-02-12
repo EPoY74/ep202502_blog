@@ -1,4 +1,5 @@
-from django.http import Http404
+# from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.shortcuts import render
@@ -13,11 +14,9 @@ def post_list(request):
 # Create your views here.
 
 def post_detail(request, post_id):
-    try:
-        post = Post.published.get(id=post_id)
-    except ObjectDoesNotExist as exc:
-        print(f"{exc}")
-        raise Http404("No post found") from exc
+    post = get_object_or_404(Post,
+                             id = post_id,
+                             status = Post.Status.PUBLISHED)
 
     return render(request,
                   'blog/post/detail.html', 
