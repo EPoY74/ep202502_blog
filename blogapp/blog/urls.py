@@ -7,5 +7,5 @@ app_name = 'blog'
 urlpatterns = [
     # Представление поста
     path('', views.post_list, name='post_list'),
-    path('<int:id>/', views.post_detail, name='post_detail')
+    path('<int:post_id>/', views.post_detail, name='post_detail')
 ]
