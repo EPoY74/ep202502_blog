@@ -21,5 +21,5 @@ from django.urls import (path,
 urlpatterns = [
     path('admin/', admin.site.urls),
     # вставляю шаблоны путей,определенных в приложении blog 
-    path('blog/',include('blog.urls', namespace='blog'))
+    path('blog/', include('blog.urls', namespace='blog'))
 ]
