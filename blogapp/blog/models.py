@@ -16,8 +16,8 @@ class Post(models.Model):  # pylint: disable=C0115
         PUBLISHED='PB','Опублковано'
 
 
-    title=models.CharField(max_length=100, unique=True, verbose_name='Заголовок')
-    slug=models.SlugField(max_length=100, unique=True, verbose_name='Слаг(путь)')
+    title=models.CharField(max_length=255, unique=True, verbose_name='Заголовок')
+    slug=models.SlugField(max_length=255, unique_for_date='publish', verbose_name='Слаг(путь)')
     author = models.ForeignKey(User,
                                on_delete=models.CASCADE,
                                related_name='blog_posts',
