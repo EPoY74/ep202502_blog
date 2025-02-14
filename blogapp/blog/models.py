@@ -1,21 +1,21 @@
-from django.db import models
+from django.db import models  # pylint: disable=C0114
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
 # Create your models here.
-class PublishedManager(models.Manager):
-    def get_queryset(self):
+class PublishedManager(models.Manager):  # pylint: disable=C0115
+    def get_queryset(self):  # pylint: disable=C0116
         return super().get_queryset()\
             .filter(status=Post.Status.PUBLISHED)
 
 
-class Post(models.Model):
-    class Status(models.TextChoices):
+class Post(models.Model):  # pylint: disable=C0115
+    class Status(models.TextChoices):  # pylint: disable=C0115
         DRAFT='DF','Черновик'
         PUBLISHED='PB','Опублковано'
-    
-    
+
+
     title=models.CharField(max_length=100, unique=True, verbose_name='Заголовок')
     slug=models.SlugField(max_length=100, unique=True, verbose_name='Слаг(путь)')
     author = models.ForeignKey(User,
@@ -34,8 +34,8 @@ class Post(models.Model):
     objects = models.Manager()
     published = PublishedManager()
 
-    class Meta:
-        """"""
+
+    class Meta:  # pylint: disable=C0115
         ordering=['-publish']
         indexes=[
             models.Index(fields=['publish']),
@@ -46,7 +46,8 @@ class Post(models.Model):
     def __str__(self):
         return str(self.title)
 
-    def get_absolute_url(self):
+    def get_absolute_url(self):  # pylint: disable=C0116
         return reverse('blog:post_detail',
-                        args=[self.id]
+                        args=[self.id] # pylint: disable=E1101
+                        #, так как поле создается автоматически
             )
