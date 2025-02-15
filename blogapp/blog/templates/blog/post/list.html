@@ -20,5 +20,6 @@
      подключаю пагинацию и  передаю в переменную post шаблона
         переменную posts представления через опервтор with
     {% endcomment %}
-    {% include "paginations.html" with page=posts %}
+    {% comment %} {% include "paginations.html" with page=posts %} {% endcomment %}
+    {% include "paginations.html" with page=page_obj %}
 {% endblock %}
