@@ -14,6 +14,11 @@
         <p class="date">
             Published {{ post.publish }} by {{post.author}}
         </p>
-        {{ post.body|truncatewords:30|linebreaks}}
+        {{ post.body|truncatewords:30|linebreaks}}  
     {% endfor %}
+    {% comment %}
+     подключаю пагинацию и  передаю в переменную post шаблона
+        переменную posts представления через опервтор with
+    {% endcomment %}
+    {% include "paginations.html" with page=posts %}
 {% endblock %}
