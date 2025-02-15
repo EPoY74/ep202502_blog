@@ -2,10 +2,11 @@ from django.db import models  # pylint: disable=C0114
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.db.models.query import QuerySet
 
 # Create your models here.
 class PublishedManager(models.Manager):  # pylint: disable=C0115
-    def get_queryset(self):  # pylint: disable=C0116
+    def get_queryset(self) -> QuerySet:  # pylint: disable=C0116
         return super().get_queryset()\
             .filter(status=Post.Status.PUBLISHED)
 
@@ -43,11 +44,13 @@ class Post(models.Model):  # pylint: disable=C0115
         verbose_name="Пост"
         verbose_name_plural="Посты"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.title)
 
-    def get_absolute_url(self):  # pylint: disable=C0116
+    def get_absolute_url(self) -> str:  # pylint: disable=C0116
         return reverse('blog:post_detail',
-                        args=[self.id] # pylint: disable=E1101
-                        #, так как поле создается автоматически
+                        args=[self.publish.year,
+                              self.publish.month,
+                              self.publish.day,
+                              self.slug]
             )
