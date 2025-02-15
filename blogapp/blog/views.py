@@ -2,14 +2,27 @@ from django.shortcuts import get_object_or_404
 
 from django.shortcuts import render
 from .models import Post
-from django.core.paginator import Paginator
+from django.core.paginator import (Paginator,
+                                   EmptyPage,
+                                   PageNotAnInteger)
 
 
 def post_list(request):
     post_list = Post.published.all()
     paginator = Paginator(post_list, 3)
     page_number = request.GET.get('page', 1)
-    posts = paginator.page(page_number)
+    try:
+        posts = paginator.page(page_number)
+        
+    except PageNotAnInteger:
+        # Если номер страницы не int ,
+        # то переходим на первую страницу
+        posts = paginator.page(1)
+        
+    except EmptyPage:
+        # Если страница находиться вне диапазона,
+        # то выдать последнюю страницу
+        posts = paginator.page(paginator.num_pages)
     
     return render(request,
                   'blog/post/list.html',
