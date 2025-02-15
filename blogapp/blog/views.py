@@ -6,6 +6,31 @@ from django.core.paginator import (Paginator,
                                    EmptyPage,
                                    PageNotAnInteger)
 from django.views.generic import ListView
+from .forms import EmailPostForm
+
+def post_share(request, post_id):
+    # Извлечь пост по идентификатору id
+    post = get_object_or_404(Post,
+                                id=post_id,
+                                status=Post.Status.PUBLISHED)
+    if request.method == "POST":
+        # фОРМА БЫЛА ПЕРедана на обработку
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            # Пля формы успешно прошли валидацию
+            cd = form.cleaned_data
+            # ОТПРАВИТЬ электронное письмо
+    else:
+        form = EmailPostForm()
+    return render(
+        request,
+        'blog/post/chare.html',
+        {
+            'post':post,
+            'form':form
+        }
+    )
+        
 
 class PostListView(ListView):
     """
