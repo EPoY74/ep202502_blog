@@ -7,8 +7,11 @@ from django.core.paginator import (Paginator,
                                    PageNotAnInteger)
 from django.views.generic import ListView
 from .forms import EmailPostForm
+from django.http import (HttpResponse,
+                         HttpRequest)
 
-def post_share(request, post_id):
+
+def post_share(request:HttpRequest, post_id: int) -> HttpResponse:
     # Извлечь пост по идентификатору id
     post = get_object_or_404(Post,
                                 id=post_id,
@@ -17,14 +20,15 @@ def post_share(request, post_id):
         # фОРМА БЫЛА ПЕРедана на обработку
         form = EmailPostForm(request.POST)
         if form.is_valid():
-            # Пля формы успешно прошли валидацию
+            # Поля формы успешно прошли валидацию
             cd = form.cleaned_data
             # ОТПРАВИТЬ электронное письмо
     else:
         form = EmailPostForm()
+        
     return render(
         request,
-        'blog/post/chare.html',
+        'blog/post/share.html',
         {
             'post':post,
             'form':form

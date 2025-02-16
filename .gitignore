@@ -12,3 +12,4 @@ todo_venv/
 #20241004 cash temp folder
 __pycache__/
 todo_cli.log
+blogapp/blogapp/settings_sec.py
