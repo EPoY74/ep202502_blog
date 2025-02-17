@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import settings_sec
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -125,3 +126,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+"""
+    Параметры электронной почты для
+    для отсылки уведомлений пропосты
+"""
+
+EMAIL_HOST = settings_sec.EMAIL_HOST
+EMAIL_HOST_USER = settings_sec.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = settings_sec.EMAIL_HOST_PASSWORD
+EMAIL_PORT = settings_sec.EMAIL_PORT
+EMAIL_USE_TLS = settings_sec.EMAIL_USE_TLS
