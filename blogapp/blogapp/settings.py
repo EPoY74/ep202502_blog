@@ -137,3 +137,7 @@ EMAIL_HOST_USER = settings_sec.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = settings_sec.EMAIL_HOST_PASSWORD
 EMAIL_PORT = settings_sec.EMAIL_PORT
 EMAIL_USE_TLS = settings_sec.EMAIL_USE_TLS
+
+# если нет возможности отправлять письма, то раскомментировать 
+# строку ниже, письма будут выводиться в оболочку, без отправки
+# EMAIL_BACKENDS = 'django.core.mail.backends.console.EmailBackends'
