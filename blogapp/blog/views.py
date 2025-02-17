@@ -1,7 +1,5 @@
 from django.shortcuts import get_object_or_404
-
 from django.shortcuts import render
-from .models import Post
 from django.core.paginator import (Paginator,
                                    EmptyPage,
                                    PageNotAnInteger)
@@ -9,6 +7,9 @@ from django.views.generic import ListView
 from .forms import EmailPostForm
 from django.http import (HttpResponse,
                          HttpRequest)
+from django.core.mail  import send_mail
+
+from .models import Post
 
 
 def post_share(request:HttpRequest, post_id: int) -> HttpResponse:
@@ -16,6 +17,8 @@ def post_share(request:HttpRequest, post_id: int) -> HttpResponse:
     post = get_object_or_404(Post,
                                 id=post_id,
                                 status=Post.Status.PUBLISHED)
+    sent:bool = False
+
     if request.method == "POST":
         # фОРМА БЫЛА ПЕРедана на обработку
         form = EmailPostForm(request.POST)
@@ -23,6 +26,13 @@ def post_share(request:HttpRequest, post_id: int) -> HttpResponse:
             # Поля формы успешно прошли валидацию
             cd = form.cleaned_data
             # ОТПРАВИТЬ электронное письмо
+            post_url = request.build_absolute_uri(
+                post.get_absolute_url())
+            subject = f"{cd['name']} рекомендует тебе прочитать {post.title}"
+            message = f"Прочитай {post.title} по адресу {post_url}/n/n{cd['name']} оставил комментарий: /n{cd['comments']}"
+            
+            send_mail(subject, message, 'epoy74@gmail.com', [cd['to']])
+            sent=True
     else:
         form = EmailPostForm()
         
@@ -31,7 +41,8 @@ def post_share(request:HttpRequest, post_id: int) -> HttpResponse:
         'blog/post/share.html',
         {
             'post':post,
-            'form':form
+            'form':form,
+            'sent':sent
         }
     )
         
@@ -47,8 +58,8 @@ class PostListView(ListView):
 
 
 def post_list(request):
-    post_list = Post.published.all()
-    paginator = Paginator(post_list, 3)
+    all_post_list = Post.published.all()
+    paginator = Paginator(all_post_list, 3)
     page_number = request.GET.get('page', 1)
     try:
         posts = paginator.page(page_number)
