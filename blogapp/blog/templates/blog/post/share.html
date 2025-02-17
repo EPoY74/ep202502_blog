@@ -6,13 +6,13 @@
         <h1>E-mail отправлен  успешно</h1>
         <p>
             "{{post.title}}" был успешно отправлен для 
-            {{form.cleaned_deta.to }}.
+            {{ form.cleaned_data.to }}.
         </p>
     {% else %}
         <h1> Поделиться "{{ post.title }} по e-mail"</h1>
         <form method="post">
             {{ form.as_p }}
-            {% scrf_token %}
+            {% csrf_token %}
             <input type="submit" value="Отправить"> 
         </form>
     {% endif %}

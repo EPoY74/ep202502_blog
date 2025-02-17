@@ -29,7 +29,7 @@ def post_share(request:HttpRequest, post_id: int) -> HttpResponse:
             post_url = request.build_absolute_uri(
                 post.get_absolute_url())
             subject = f"{cd['name']} рекомендует тебе прочитать {post.title}"
-            message = f"Прочитай {post.title} по адресу {post_url}/n/n{cd['name']} оставил комментарий: /n{cd['comments']}"
+            message = f"Прочитай {post.title} по адресу {post_url}\n\n{cd['name']} оставил комментарий: /n{cd['comments']}"
             
             send_mail(subject, message, 'epoy74@gmail.com', [cd['to']])
             sent=True
