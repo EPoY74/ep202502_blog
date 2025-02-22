@@ -7,8 +7,9 @@ class EmailPostForm(forms.Form):
     """
     Класс для отравки уведомлений по электронной почте
     """
-    name = forms.CharField(max_length=25)
-    email = forms.EmailField()
-    to = forms.EmailField()
+    name = forms.CharField(max_length=25, label='Ваше имя:')
+    email = forms.EmailField(label='Ваш e-mail:')
+    to = forms.EmailField(label='E-mail получателя')
     comments = forms.CharField(required=False,
-                               widget=forms.Textarea) 
+                               widget=forms.Textarea,
+                               label='Комментарий') 
