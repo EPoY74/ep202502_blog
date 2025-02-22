@@ -134,7 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_HOST = settings_sec.EMAIL_HOST
 EMAIL_HOST_USER = settings_sec.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = settings_sec.EMAIL_HOST_PASSWORD
+EMAIL_HOST_PASSWORD = settings_sec.EMAIL_PASSWORD
 EMAIL_PORT = settings_sec.EMAIL_PORT
 EMAIL_USE_TLS = settings_sec.EMAIL_USE_TLS
 
