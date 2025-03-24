@@ -11,7 +11,15 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-from . import settings_sec
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+try:
+    from . import settings_sec
+except ImportError as err:
+    err_msg = f"Не удалось импортировать settings_sec.py:\n{err}"
+    logging.error(err_msg)
+    raise RuntimeError(err)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
